@@ -1,0 +1,132 @@
+# Caudell Spatial Intelligence - 3D Visualization Portfolio
+
+A showcase of advanced 3D reconstruction and visualization technologies, featuring architectural heritage projects and interactive 3D experiences.
+
+## Projects
+
+### Gasson Hall: Two Approaches to 3D Reconstruction
+A comparison of classical photogrammetry (Metashape) and NeRF training (Nerfstudio) workflows using drone imagery from Boston College's Gasson Hall (1913). Demonstrates the range of possibilities in architectural visualization from structural accuracy to view-dependent lighting and novel viewpoint synthesis.
+
+### St. Ignatius: Interactive 3D Gaussian Splatting
+Real-time 3D visualization using Gaussian Splatting technology to explore Pablo Eduardo's 2005 sculpture. Features dual artistic styles (photorealistic and watercolor) with interactive camera controls for immersive exploration.
+
+## Technology Stack
+
+- **Drone Capture**: DJI Matrice 4 Enterprise
+- **Photogrammetry**: Metashape Pro with local processing
+- **Neural Rendering**: Nerfstudio with NeRF technology
+- **Real-time Rendering**: Gaussian Splatting for interactive 3D
+- **Web Technologies**: Three.js, modern ES6 modules
+- **Deployment**: Vercel with Cloudflare R2 asset hosting
+
+## Project Structure
+
+```
+caudell_spatial_intelligence_vercel_site/
+├── index.html              # Gasson Hall project page (main portfolio)
+├── st-ignatius.html        # St. Ignatius project page with embedded viewer
+├── terrain-modeling.html   # Pondside Green terrain analysis project
+├── services.html           # Professional services overview
+├── about.html              # Company and founder information
+├── for-businesses.html     # Luxury boutique-style business page for executives
+├── viewer.html             # Full-screen 3D viewer with navigation
+├── viewer-embedded.html    # Embedded 3D viewer for iframe integration
+├── style.css               # Shared styling and responsive design
+├── vercel.json             # Vercel deployment configuration
+├── README.md               # This documentation
+
+└── assets/
+    ├── CSI_logo.png        # Company logo
+    ├── founder_hero_shot.png   # Founder portrait
+    ├── gasson_metashape.mp4    # Metashape render video
+    ├── gasson_nerfstudio.mp4   # Nerfstudio render video
+    ├── occ_18_green_heat_map.png      # Terrain altitude heatmap
+    ├── occ_18_green_tight_flythrough.mov   # Terrain flythrough video
+    ├── caudell_photorealistic_ignatius.ksplat    # Photorealistic 3D scene
+    ├── caudell_watercolor_ignatius.ksplat        # Watercolor 3D scene
+    └── lib/                 # Three.js and Gaussian Splats libraries
+        ├── three.module.js
+        └── gaussian-splats-3d.module.js
+```
+
+## Features
+
+### Gasson Hall Project
+- **Classical Photogrammetry**: High-fidelity mesh reconstruction with UV-mapped textures
+- **NeRF Training**: Neural radiance field representation for view-dependent lighting and novel viewpoints
+- **Professional Output**: Cinematic flythroughs with post-processing
+- **Local Processing**: High-performance local processing with Metashape Pro
+
+### St. Ignatius Project
+- **Real-time Rendering**: Interactive 3D visualization with Gaussian Splatting
+- **Dual Artistic Styles**: Switch between photorealistic and watercolor interpretations
+- **Intuitive Controls**: Mouse orbit, right-click pan, scroll zoom
+- **Embedded Integration**: Seamless iframe integration for portfolio pages
+
+## Deployment
+
+### Vercel Deployment
+1. Connect your GitHub repository to Vercel
+2. Vercel automatically detects static site (no build command needed)
+3. Assets are proxied through Cloudflare R2 for high-quality content delivery
+4. Custom headers ensure proper CORS and caching
+
+### Local Development
+```bash
+# Python
+python3 -m http.server 8000
+
+# Node.js
+npx serve .
+
+# PHP
+php -S localhost:8000
+```
+
+
+
+## Technical Details
+
+### 3D Reconstruction Pipeline
+1. **Drone Capture**: High-resolution imagery with precise positioning
+2. **Image Processing**: Local high-performance processing for computational efficiency
+3. **Workflow Integration**: Seamless data transfer between Metashape Pro and Nerfstudio
+4. **Output Generation**: Professional-grade visualizations and interactive experiences
+
+### Gaussian Splatting Implementation
+- **Real-time Performance**: Optimized for smooth 60fps rendering
+- **Scene Management**: Dynamic loading and switching between artistic styles
+- **Camera Controls**: Intuitive navigation with orbit, pan, and zoom
+- **Responsive Design**: Optimized for all device sizes
+
+## Website Structure
+
+The website presents a cohesive narrative from static documentation to interactive experience:
+
+1. **Main Portfolio** (`index.html`): Gasson Hall project showcasing technical capabilities
+2. **Interactive Experience** (`st-ignatius.html`): Embedded 3D viewer demonstrating real-time capabilities
+3. **Full-screen Viewer** (`viewer.html`): Immersive experience with navigation back to portfolio
+4. **Unified Navigation**: Seamless movement between all sections
+5. **For Businesses Page**: Luxury boutique positioning for executive decision-makers with refined copy and CTA styling
+
+## Asset Management
+
+- **Local Assets**: CSS, HTML, JavaScript libraries
+- **Cloud Assets**: High-resolution videos and 3D models via Cloudflare R2
+- **Optimization**: Efficient loading with proper caching headers
+- **Quality**: Professional-grade content delivery
+
+## Browser Compatibility
+
+- **Modern Browsers**: Chrome, Firefox, Safari, Edge (latest versions)
+- **WebGL Support**: Required for 3D rendering
+- **ES6 Modules**: Modern JavaScript for optimal performance
+- **Responsive Design**: Mobile and desktop optimized
+
+## License
+
+© 2025 Caudell Spatial Intelligence
+
+---
+
+*This portfolio demonstrates the intersection of architectural heritage preservation, cutting-edge 3D technology, and artistic interpretation through innovative visualization techniques.*

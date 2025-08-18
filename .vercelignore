@@ -1,0 +1,13 @@
+# Large media files - these are hosted elsewhere and shouldn't be deployed to Vercel
+assets/caudell_photorealistic_ignatius.ksplat
+assets/caudell_watercolor_ignatius.ksplat
+assets/gasson_metashape.mp4
+assets/gasson_nerfstudio.mp4
+assets/occ_18_green_tight_flythrough.mov
+
+# Development and system files
+.DS_Store
+*.log
+.env
+.env.local
+.env.production

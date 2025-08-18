@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <!-- SEO and Social Media Meta Tags -->
+    <title>Ignatius 3D Gaussian Splat Viewer - Interactive 3D Art Experience</title>
+    <meta name="description" content="Explore stunning 3D Gaussian Splat scenes of Ignatius in both photorealistic and watercolor styles. Interactive 3D viewer with real-time camera controls.">
+    <meta name="keywords" content="3D Gaussian Splat, Ignatius, 3D Art, Interactive Viewer, Photorealistic, Watercolor, 3D Graphics">
+    <meta name="author" content="Jacob Caudell">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="Ignatius 3D Gaussian Splat Viewer">
+    <meta property="og:description" content="Interactive 3D viewer for stunning Gaussian Splat scenes of Ignatius">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ignatius 3D Gaussian Splat Viewer">
+    <meta name="twitter:description" content="Interactive 3D viewer for stunning Gaussian Splat scenes">
+    
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+    
+    <!-- Import map for ES modules -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "./assets/lib/three.module.js",
+            "@mkkellogg/gaussian-splats-3d": "./assets/lib/gaussian-splats-3d.module.js"
+        }
+    }
+    </script>
+    
+    <script>
+        // Mobile detection and performance optimization
+        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        // Mobile performance settings
+        if (isMobile) {
+            console.log('Mobile device detected - applying performance optimizations');
+            
+            // Reduce render quality on mobile
+            const mobilePixelRatio = Math.min(window.devicePixelRatio, 1.5);
+            
+            // Mobile-specific CSS variables
+            document.documentElement.style.setProperty('--mobile-optimized', 'true');
+        }
+        
+        // Touch device optimizations
+        if (isTouchDevice) {
+            console.log('Touch device detected - optimizing for touch interactions');
+        }
+        
+        // Performance monitoring
+        let frameCount = 0;
+        let lastTime = performance.now();
+        let fps = 0;
+        
+        function updateFPS() {
+            frameCount++;
+            const currentTime = performance.now();
+            
+            if (currentTime - lastTime >= 1000) {
+                fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+                frameCount = 0;
+                lastTime = currentTime;
+                
+                // Log FPS for debugging
+                if (fps < 30 && isMobile) {
+                    console.warn(`Low FPS detected: ${fps} - Mobile performance mode activated`);
+                }
+            }
+            
+            requestAnimationFrame(updateFPS);
+        }
+        
+        // Start FPS monitoring
+        updateFPS();
+    </script>
+
+    <style>
+        /* Mobile Performance Optimizations */
+        :root {
+            --mobile-optimized: false;
+            --animation-duration: 0.3s;
+            --shadow-intensity: 0.2;
+            --backdrop-blur: 10px;
+        }
+        
+        /* Mobile-specific optimizations */
+        @media (max-width: 768px) {
+            :root {
+                --animation-duration: 0s;
+                --shadow-intensity: 0;
+                --backdrop-blur: 5px;
+            }
+            
+            /* Disable expensive CSS properties on mobile */
+            * {
+                will-change: auto !important;
+                transform-style: flat !important;
+            }
+            
+            /* Simplify background on mobile */
+            body {
+                background: #1a1a2e !important;
+            }
+            
+            /* Mobile navigation */
+            .viewer-nav {
+                padding: 0.5rem 1rem;
+                flex-direction: column;
+                gap: 0.5rem;
+                top: 0;
+            }
+            
+            .viewer-nav .logo {
+                font-size: 1rem;
+            }
+            
+            .viewer-nav .back-link {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            /* Mobile scene selector */
+            #scene-selector {
+                top: 120px;
+                left: 1rem;
+                right: 1rem;
+                transform: none;
+                width: auto;
+                padding: 0.5rem;
+            }
+            
+            #scene-selector button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+                min-height: 44px;
+            }
+            
+            /* Mobile loading screen */
+            .loading-overlay {
+                padding: 2rem 1rem;
+            }
+            
+            .loading-logo {
+                max-width: 120px;
+                margin-bottom: 1.5rem;
+            }
+            
+            .loading-title {
+                font-size: 1.8rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .loading-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+            
+            .loading-text {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .loading-steps {
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+            
+            .loading-step {
+                font-size: 0.9rem;
+                padding: 0.75rem 1rem;
+            }
+            
+            .loading-progress {
+                height: 8px;
+                margin-bottom: 1.5rem;
+            }
+            
+            .loading-spinner {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            .viewer-nav {
+                padding: 0.4rem 0.75rem;
+            }
+            
+            .viewer-nav .logo {
+                font-size: 0.9rem;
+            }
+            
+            .viewer-nav .back-link {
+                padding: 0.35rem 0.7rem;
+                font-size: 0.85rem;
+            }
+            
+            #scene-selector {
+                top: 110px;
+                left: 0.75rem;
+                right: 0.75rem;
+                padding: 0.4rem;
+            }
+            
+            #scene-selector button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* Landscape mobile optimization */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .viewer-nav {
+                padding: 0.3rem 1rem;
+                flex-direction: row;
+                gap: 1rem;
+            }
+            
+            #scene-selector {
+                top: 70px;
+            }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .viewer-nav .back-link:hover {
+                background: none;
+                border-color: rgba(203, 213, 225, 0.3);
+            }
+        }
+        
+        /* High-DPI mobile devices */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .loading-logo {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+        
+        /* Navigation Bar */
+        .viewer-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(203, 213, 225, 0.2);
+            z-index: 1001;
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .viewer-nav .logo {
+            color: #f4f4f4;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .viewer-nav .back-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(203, 213, 225, 0.3);
+        }
+        
+        .viewer-nav .back-link:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(203, 213, 225, 0.5);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            height: 100vh;
+            margin: 0;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            color: #f4f4f4;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+
+        
+        /* Scene Selection Bar */
+        #scene-selector {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(203, 213, 225, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .scene-button {
+            background: rgba(203, 213, 225, 0.1);
+            color: #cbd5e1;
+            border: 1px solid rgba(203, 213, 225, 0.3);
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            min-width: 180px;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .scene-button:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(203, 213, 225, 0.5);
+        }
+        
+        .scene-button.active {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(203, 213, 225, 0.6);
+            font-weight: 500;
+        }
+        
+        .scene-button:disabled {
+            background: rgba(148, 163, 184, 0.1);
+            color: #94a3b8;
+            cursor: not-allowed;
+            border-color: rgba(148, 163, 184, 0.3);
+        }
+        
+        #loading-indicator {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            margin-left: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            background: rgba(96, 165, 250, 0.1);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 6px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .loading-spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(96, 165, 250, 0.3);
+            border-top: 2px solid #60a5fa;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+
+        
+        /* Controls Help */
+        #controls-help {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            color: #f4f4f4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            max-width: 320px;
+            z-index: 100;
+            border: 1px solid rgba(203, 213, 225, 0.2);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .control-item {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .key {
+            background: rgba(203, 213, 225, 0.1);
+            color: #94a3b8;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin-right: 1rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(203, 213, 225, 0.3);
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #scene-selector {
+                flex-direction: column;
+                gap: 15px;
+                top: 20px;
+                padding: 15px;
+            }
+            
+            .scene-button {
+                min-width: 200px;
+            }
+            
+            #info-panel {
+                top: 10px;
+                right: 10px;
+                max-width: 250px;
+                padding: 15px;
+            }
+            
+            #controls-help {
+                bottom: 10px;
+                left: 10px;
+                max-width: 280px;
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #scene-selector {
+                top: 20px;
+                left: 20px;
+                right: 20px;
+                transform: none;
+            }
+            
+            .scene-button {
+                min-width: 100%;
+            }
+        }
+        
+
+        
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.98);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .loading-overlay h2 {
+            margin-bottom: 1rem;
+            color: #ffffff;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .loading-subtitle {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            max-width: 400px;
+            line-height: 1.5;
+        }
+        
+        .loading-progress {
+            width: 400px;
+            height: 8px;
+            background: rgba(203, 213, 225, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(203, 213, 225, 0.2);
+        }
+        
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #60a5fa, #3b82f6);
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+        }
+        
+        .loading-text {
+            color: #cbd5e1;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            min-height: 24px;
+        }
+        
+        .loading-steps {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .loading-step {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(203, 213, 225, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .loading-step.active {
+            background: #60a5fa;
+            transform: scale(1.2);
+        }
+        
+        .loading-step.completed {
+            background: #10b981;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="viewer-nav">
+        <a href="/" class="back-link">← Back to Portfolio</a>
+    </nav>
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <img src="assets/CSI_logo.png" alt="Caudell Spatial Intelligence" class="loading-logo">
+        <h2>Loading 3D Experience</h2>
+        <p class="loading-subtitle">Initializing 3D viewer and loading scene data.</p>
+        <div class="loading-progress">
+            <div class="loading-bar" id="loading-bar"></div>
+        </div>
+        <p id="loading-text" class="loading-text">Initializing...</p>
+        <div class="loading-steps">
+            <div class="loading-step active"></div>
+            <div class="loading-step"></div>
+            <div class="loading-step"></div>
+        </div>
+    </div>
+
+    
+    
+    <!-- Scene Selection Bar -->
+    <div id="scene-selector">
+        <button class="scene-button active" data-scene="photorealistic">
+            Photorealistic Ignatius
+        </button>
+        <button class="scene-button" data-scene="watercolor">
+            Watercolor Ignatius
+        </button>
+        <div id="loading-indicator" style="display: none;">
+            <div class="loading-spinner"></div>
+            Loading...
+        </div>
+    </div>
+    
+
+    
+    <!-- Controls Help -->
+    <div id="controls-help">
+        <div class="control-item">
+            <span class="key">Left Click + Drag</span>
+            <span>Orbit camera</span>
+        </div>
+        <div class="control-item">
+            <span class="key">Right Click + Drag</span>
+            <span>Pan camera</span>
+        </div>
+        <div class="control-item">
+            <span class="key">Scroll</span>
+            <span>Zoom in/out</span>
+        </div>
+        <div class="control-item">
+            <span class="key">I</span>
+            <span>Toggle info panel</span>
+        </div>
+        <div class="control-item">
+            <span class="key">H</span>
+            <span>Toggle this help</span>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
+        import * as THREE from 'three';
+
+
+
+        // Scene configurations following Mark's README approach
+        const SCENE_CONFIGS = {
+            photorealistic: [{
+                'path': './assets/caudell_photorealistic_ignatius.ksplat',
+                'splatAlphaRemovalThreshold': 5
+            }],
+            watercolor: [{
+                'path': './assets/caudell_watercolor_ignatius.ksplat',
+                'splatAlphaRemovalThreshold': 5
+            }]
+        };
+
+        let viewer;
+        let currentMode = 'photorealistic';
+        let helpVisible = true;
+        let animationId;
+
+        // Update loading overlay
+        function updateLoadingProgress(progress, text) {
+            const bar = document.getElementById('loading-bar');
+            const textElement = document.getElementById('loading-text');
+            
+            if (bar) bar.style.width = `${progress}%`;
+            if (textElement) textElement.textContent = text;
+        }
+
+        // Hide loading overlay
+        function hideLoadingOverlay() {
+            const overlay = document.getElementById('loading-overlay');
+            if (overlay) {
+                overlay.classList.add('hidden');
+            }
+        }
+
+        // Initialize the viewer
+        async function initViewer() {
+            try {
+                console.log('Initializing multi-scene viewer...');
+                updateLoadingProgress(20, 'Creating 3D viewer...');
+                
+                // Mobile-specific viewer configuration
+                const viewerConfig = {
+                    'cameraUp': [0, 0, -1],
+                    'initialCameraPosition': [0, 1, 0],
+                    'initialCameraLookAt': [1, 0, 0],
+                    'sphericalHarmonicsDegree': 2
+                };
+                
+                // Apply mobile optimizations
+                if (isMobile) {
+                    console.log('Applying mobile optimizations to viewer');
+                    
+                    // Reduce spherical harmonics for mobile
+                    viewerConfig.sphericalHarmonicsDegree = 1;
+                    
+                    // Mobile-specific camera settings
+                    viewerConfig.initialCameraPosition = [0, 0.5, 0];
+                    viewerConfig.initialCameraLookAt = [0.5, 0, 0];
+                }
+                
+                // Create viewer with optimized settings
+                viewer = new GaussianSplats3D.Viewer(viewerConfig);
+
+                updateLoadingProgress(40, 'Loading initial scene...');
+                
+                // Apply mobile-specific renderer optimizations
+                if (isMobile && viewer.renderer) {
+                    console.log('Optimizing renderer for mobile');
+                    
+                    // Reduce pixel ratio on mobile
+                    const mobilePixelRatio = Math.min(window.devicePixelRatio, 1.5);
+                    viewer.renderer.setPixelRatio(mobilePixelRatio);
+                    
+                    // Disable expensive renderer features on mobile
+                    viewer.renderer.shadowMap.enabled = false;
+                    viewer.renderer.shadowMap.type = THREE.BasicShadowMap;
+                    viewer.renderer.antialias = false;
+                    viewer.renderer.powerPreference = 'low-power';
+                    
+                    // Optimize for mobile performance
+                    viewer.renderer.setSize(window.innerWidth, window.innerHeight, false);
+                    
+                    // Reduce texture quality on mobile
+                    if (viewer.renderer.capabilities) {
+                        console.log(`Mobile renderer capabilities: ${viewer.renderer.capabilities.maxTextureSize} max texture size`);
+                    }
+                }
+                
+                // Load the initial scene
+                await loadScenes(currentMode);
+                
+                updateLoadingProgress(80, 'Starting viewer...');
+                
+                // Start the viewer
+                viewer.start();
+                
+                updateLoadingProgress(100, 'Ready!');
+                
+                // Hide loading overlay after a short delay
+                setTimeout(hideLoadingOverlay, 500);
+                
+                // Start info update loop
+                startInfoUpdate();
+                
+                // Setup controls
+                setupControls();
+                
+            } catch (error) {
+                console.error('Failed to initialize viewer:', error);
+                updateLoadingProgress(0, `Error: ${error.message}`);
+            }
+        }
+
+        // Load scenes based on mode
+        async function loadScenes(mode) {
+            try {
+                const sceneConfig = SCENE_CONFIGS[mode];
+                console.log(`Loading scenes for mode: ${mode}`);
+                
+                // Show loading indicator
+                showLoadingIndicator(true);
+                
+                // Mobile-specific scene loading optimizations
+                if (isMobile) {
+                    console.log('Applying mobile optimizations to scene loading');
+                    
+                    // Reduce scene quality for mobile
+                    sceneConfig.forEach(config => {
+                        // Increase alpha removal threshold for mobile (reduces splat count)
+                        config.splatAlphaRemovalThreshold = Math.max(config.splatAlphaRemovalThreshold, 10);
+                        
+                        // Add mobile-specific loading options
+                        config.mobileOptimized = true;
+                        config.maxSplats = 500000; // Limit splat count on mobile
+                        
+                        console.log(`Mobile scene config: ${config.path}, threshold: ${config.splatAlphaRemovalThreshold}`);
+                    });
+                }
+                
+                // Clear existing scenes
+                if (viewer.splatMesh && viewer.splatMesh.scenes) {
+                    viewer.splatMesh.scenes = [];
+                }
+                
+                // Load scenes using Mark's recommended approach
+                await viewer.addSplatScenes(sceneConfig);
+                
+                // Apply mobile-specific post-loading optimizations
+                if (isMobile && viewer.splatMesh) {
+                    console.log('Applying post-loading mobile optimizations');
+                    
+                    // Reduce material complexity on mobile
+                    if (viewer.splatMesh.material) {
+                        viewer.splatMesh.material.transparent = false;
+                        viewer.splatMesh.material.alphaTest = 0.1;
+                        
+                        // Disable expensive material features on mobile
+                        if (viewer.splatMesh.material.uniforms) {
+                            // Reduce shader complexity for mobile
+                            console.log('Mobile: Simplified material shaders');
+                        }
+                    }
+                    
+                    // Optimize geometry for mobile
+                    if (viewer.splatMesh.geometry) {
+                        // Reduce draw calls on mobile
+                        console.log('Mobile: Optimizing geometry for performance');
+                    }
+                }
+                
+                // Update UI
+                updateModeInfo(mode);
+                updateSceneButtons(mode);
+                
+                console.log(`Scenes loaded successfully for mode: ${mode}`);
+                
+            } catch (error) {
+                console.error(`Failed to load scenes for mode ${mode}:`, error);
+            } finally {
+                showLoadingIndicator(false);
+            }
+        }
+
+        // Show/hide loading indicator
+        function showLoadingIndicator(show) {
+            const indicator = document.getElementById('loading-indicator');
+            if (indicator) {
+                indicator.style.display = show ? 'flex' : 'none';
+            }
+        }
+
+        // Update mode information display
+        function updateModeInfo(mode) {
+            const modeNames = {
+                'photorealistic': 'Photorealistic Ignatius',
+                'watercolor': 'Watercolor Ignatius'
+            };
+            
+            const currentModeElement = document.getElementById('current-mode');
+            if (currentModeElement) {
+                currentModeElement.textContent = modeNames[mode] || mode;
+            }
+        }
+
+        // Update scene button states
+        function updateSceneButtons(activeMode) {
+            const buttons = document.querySelectorAll('.scene-button');
+            buttons.forEach(button => {
+                const mode = button.dataset.scene;
+                if (mode === activeMode) {
+                    button.classList.add('active');
+                    button.disabled = false;
+                } else {
+                    button.classList.remove('active');
+                    button.disabled = false;
+                }
+            });
+        }
+
+        // Start info update loop
+        function startInfoUpdate() {
+            function updateInfo() {
+                if (viewer && viewer.splatMesh) {
+                    try {
+                        // Keep the loop running for potential future use
+                        // All info panel updates have been removed
+                    } catch (error) {
+                        console.warn('Error in update loop:', error);
+                    }
+                }
+                
+                animationId = requestAnimationFrame(updateInfo);
+            }
+            
+            updateInfo();
+        }
+
+        // Setup scene selection controls
+        function setupSceneControls() {
+            const buttons = document.querySelectorAll('.scene-button');
+            buttons.forEach(button => {
+                button.addEventListener('click', async () => {
+                    const mode = button.dataset.scene;
+                    if (mode !== currentMode) {
+                        currentMode = mode;
+                        await loadScenes(mode);
+                    }
+                });
+            });
+        }
+
+        // Setup keyboard controls
+        function setupControls() {
+            // Setup scene selection controls
+            setupSceneControls();
+            
+            // Mobile-specific controls setup
+            if (isMobile) {
+                console.log('Setting up mobile-specific controls');
+                setupMobileControls();
+            }
+            
+            // Keyboard controls (desktop only)
+            if (!isMobile) {
+                setupKeyboardControls();
+            }
+            
+            // Touch controls for all devices
+            if (isTouchDevice) {
+                setupTouchControls();
+            }
+        }
+        
+        // Setup mobile-specific controls
+        function setupMobileControls() {
+            console.log('Configuring mobile controls');
+            
+            // Disable keyboard controls on mobile
+            document.removeEventListener('keydown', handleKeyDown);
+            
+            // Add mobile-specific UI elements
+            addMobileUI();
+            
+            // Optimize camera controls for mobile
+            if (viewer && viewer.controls) {
+                // Reduce camera sensitivity on mobile
+                viewer.controls.enableDamping = true;
+                viewer.controls.dampingFactor = 0.05;
+                
+                // Limit camera movement on mobile
+                viewer.controls.maxDistance = 10;
+                viewer.controls.minDistance = 0.5;
+                
+                // Disable pan on mobile (keep only orbit and zoom)
+                viewer.controls.enablePan = false;
+                
+                console.log('Mobile camera controls optimized');
+            }
+        }
+        
+        // Setup touch controls
+        function setupTouchControls() {
+            console.log('Setting up touch controls');
+            
+            // Add touch gesture support
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchStartTime = 0;
+            
+            // Touch start
+            document.addEventListener('touchstart', (event) => {
+                if (event.touches.length === 1) {
+                    touchStartX = event.touches[0].clientX;
+                    touchStartY = event.touches[0].clientY;
+                    touchStartTime = Date.now();
+                }
+            });
+            
+            // Touch end (for tap detection)
+            document.addEventListener('touchend', (event) => {
+                const touchEndTime = Date.now();
+                const touchDuration = touchEndTime - touchStartTime;
+                
+                // Detect tap gesture
+                if (touchDuration < 300) {
+                    const touchEndX = event.changedTouches[0].clientX;
+                    const touchEndY = event.changedTouches[0].clientY;
+                    const touchDistance = Math.sqrt(
+                        Math.pow(touchEndX - touchStartX, 2) + 
+                        Math.pow(touchEndY - touchStartY, 2)
+                    );
+                    
+                    // If it's a tap (not a drag)
+                    if (touchDistance < 10) {
+                        handleMobileTap(touchEndX, touchEndY);
+                    }
+                }
+            });
+            
+            // Pinch to zoom (if multiple touches)
+            document.addEventListener('touchmove', (event) => {
+                if (event.touches.length === 2) {
+                    event.preventDefault(); // Prevent default pinch behavior
+                    
+                    // Calculate pinch distance
+                    const touch1 = event.touches[0];
+                    const touch2 = event.touches[1];
+                    const currentDistance = Math.sqrt(
+                        Math.pow(touch2.clientX - touch1.clientX, 2) + 
+                        Math.pow(touch2.clientY - touch1.clientY, 2)
+                    );
+                    
+                    // Handle pinch zoom
+                    handlePinchZoom(currentDistance);
+                }
+            });
+        }
+        
+        // Handle mobile tap gestures
+        function handleMobileTap(x, y) {
+            console.log(`Mobile tap detected at (${x}, ${y})`);
+            
+            // Check if tap is on scene selector buttons
+            const buttons = document.querySelectorAll('.scene-button');
+            buttons.forEach(button => {
+                const rect = button.getBoundingClientRect();
+                if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+                    // Simulate button click
+                    button.click();
+                }
+            });
+        }
+        
+        // Handle pinch zoom
+        function handlePinchZoom(distance) {
+            if (viewer && viewer.controls) {
+                // Adjust camera distance based on pinch
+                const zoomFactor = distance / 100;
+                viewer.controls.dollyOut(zoomFactor);
+                viewer.controls.update();
+            }
+        }
+        
+        // Add mobile-specific UI elements
+        function addMobileUI() {
+            // Add mobile controls hint
+            const mobileHint = document.createElement('div');
+            mobileHint.id = 'mobile-hint';
+            mobileHint.innerHTML = `
+                <div style="
+                    position: fixed;
+                    bottom: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(26, 26, 46, 0.9);
+                    color: #cbd5e1;
+                    padding: 10px 15px;
+                    border-radius: 20px;
+                    font-size: 0.8rem;
+                    text-align: center;
+                    z-index: 1000;
+                    border: 1px solid rgba(203, 213, 225, 0.3);
+                ">
+                    <strong>Mobile Controls:</strong><br>
+                    Tap & drag to orbit • Pinch to zoom
+                </div>
+            `;
+            
+            document.body.appendChild(mobileHint);
+            
+            // Hide hint after 5 seconds
+            setTimeout(() => {
+                if (mobileHint.parentNode) {
+                    mobileHint.style.opacity = '0';
+                    mobileHint.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => {
+                        if (mobileHint.parentNode) {
+                            mobileHint.parentNode.removeChild(mobileHint);
+                        }
+                    }, 500);
+                }
+            }, 5000);
+        }
+        
+        // Setup keyboard controls (desktop only)
+        function setupKeyboardControls() {
+            document.addEventListener('keydown', handleKeyDown);
+        }
+        
+        // Handle keyboard input
+        function handleKeyDown(event) {
+            if (isMobile) return; // Disable keyboard on mobile
+            
+            switch(event.key.toLowerCase()) {
+                case 'i':
+                    toggleInfoPanel();
+                    break;
+                case 'h':
+                    toggleHelp();
+                    break;
+                case '1':
+                    if (currentMode !== 'photorealistic') {
+                        currentMode = 'photorealistic';
+                        loadScenes('photorealistic');
+                    }
+                    break;
+                case '2':
+                    if (currentMode !== 'watercolor') {
+                        currentMode = 'watercolor';
+                        loadScenes('watercolor');
+                    }
+                    break;
+            }
+        }
+
+        // Toggle info panel
+        function toggleInfoPanel() {
+            const infoPanel = document.getElementById('info-panel');
+            if (infoPanel) {
+                infoPanel.style.display = infoPanel.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+        
+        // Toggle help panel
+        function toggleHelp() {
+            const helpPanel = document.getElementById('controls-help');
+            if (helpPanel) {
+                helpPanel.style.display = helpPanel.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+        
+        // Mobile performance monitoring and optimization
+        function startMobilePerformanceMonitoring() {
+            if (!isMobile) return;
+            
+            console.log('Starting mobile performance monitoring');
+            
+            // Monitor frame rate and adjust quality if needed
+            let lowFpsCount = 0;
+            const maxLowFpsCount = 5;
+            
+            function monitorPerformance() {
+                if (fps < 30) {
+                    lowFpsCount++;
+                    console.warn(`Low FPS detected: ${fps} (${lowFpsCount}/${maxLowFpsCount})`);
+                    
+                    if (lowFpsCount >= maxLowFpsCount) {
+                        console.warn('Activating aggressive mobile performance mode');
+                        activateAggressiveMobileMode();
+                        lowFpsCount = 0; // Reset counter
+                    }
+                } else {
+                    lowFpsCount = Math.max(0, lowFpsCount - 1);
+                }
+                
+                requestAnimationFrame(monitorPerformance);
+            }
+            
+            monitorPerformance();
+        }
+        
+        // Activate aggressive mobile performance mode
+        function activateAggressiveMobileMode() {
+            if (!isMobile || !viewer) return;
+            
+            console.log('Activating aggressive mobile performance mode');
+            
+            // Further reduce render quality
+            if (viewer.renderer) {
+                viewer.renderer.setPixelRatio(1.0);
+                viewer.renderer.powerPreference = 'low-power';
+                
+                // Disable all expensive features
+                if (viewer.renderer.shadowMap) {
+                    viewer.renderer.shadowMap.enabled = false;
+                }
+            }
+            
+            // Reduce scene complexity
+            if (viewer.splatMesh && viewer.splatMesh.material) {
+                viewer.splatMesh.material.transparent = false;
+                viewer.splatMesh.material.alphaTest = 0.2;
+            }
+            
+            // Show performance warning to user
+            showMobilePerformanceWarning();
+        }
+        
+        // Show mobile performance warning
+        function showMobilePerformanceWarning() {
+            const warning = document.createElement('div');
+            warning.id = 'mobile-performance-warning';
+            warning.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: rgba(220, 38, 38, 0.95);
+                    color: white;
+                    padding: 20px;
+                    border-radius: 12px;
+                    text-align: center;
+                    z-index: 10000;
+                    max-width: 300px;
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                ">
+                    <strong>Performance Mode Activated</strong><br><br>
+                    Your device is struggling with this 3D scene.<br>
+                    Quality has been reduced for better performance.<br><br>
+                    <button onclick="this.parentElement.parentElement.remove()" style="
+                        background: white;
+                        color: #dc2626;
+                        border: none;
+                        padding: 8px 16px;
+                        border-radius: 6px;
+                        font-weight: 600;
+                        cursor: pointer;
+                    ">Got it</button>
+                </div>
+            `;
+            
+            document.body.appendChild(warning);
+            
+            // Auto-hide after 8 seconds
+            setTimeout(() => {
+                if (warning.parentNode) {
+                    warning.style.opacity = '0';
+                    warning.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => {
+                        if (warning.parentNode) {
+                            warning.parentNode.removeChild(warning);
+                        }
+                    }, 500);
+                }
+            }, 8000);
+        }
+        
+        // Handle window resize for mobile
+        function handleWindowResize() {
+            if (viewer && viewer.renderer) {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                
+                viewer.renderer.setSize(width, height, false);
+                
+                if (viewer.camera) {
+                    viewer.camera.aspect = width / height;
+                    viewer.camera.updateProjectionMatrix();
+                }
+                
+                // Mobile-specific resize optimizations
+                if (isMobile) {
+                    console.log(`Mobile resize: ${width}x${height}`);
+                    
+                    // Adjust mobile UI elements
+                    const mobileHint = document.getElementById('mobile-hint');
+                    if (mobileHint) {
+                        mobileHint.style.bottom = height < 600 ? '10px' : '20px';
+                    }
+                }
+            }
+        }
+        
+        // Add resize listener
+        window.addEventListener('resize', handleWindowResize);
+        
+        // Initialize mobile performance monitoring
+        if (isMobile) {
+            startMobilePerformanceMonitoring();
+        }
+
+        // Cleanup function
+        function cleanup() {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+            if (viewer) {
+                viewer.dispose();
+            }
+        }
+
+        // Handle page unload
+        window.addEventListener('beforeunload', cleanup);
+
+        // Initialize when page loads
+        window.addEventListener('load', async () => {
+            await initViewer();
+            setupSceneControls();
+        });
+    </script>
+</body>
+</html>

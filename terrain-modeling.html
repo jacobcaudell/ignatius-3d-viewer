@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Pondside Green - Caudell Spatial Intelligence</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='white'/><text x='50' y='65' font-family='Arial, sans-serif' font-size='50' text-anchor='middle' fill='%23000'>G</text></svg>">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/CSI_logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/CSI_logo.png">
+  <link rel="apple-touch-icon" href="assets/CSI_logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/CSI_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="assets/CSI_logo.png" alt="CSI Logo" class="logo">
+      <div class="header-titles">
+        <h1 class="site-title">Caudell Spatial Intelligence</h1>
+        <p class="page-title">Pondside Green: Terrain Modeling</p>
+      </div>
+    </div>
+    
+    <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">☰</button>
+    
+    <nav class="main-nav">
+      <div class="nav-group">
+        <a href="about.html" class="nav-link info">About</a>
+        <a href="services.html" class="nav-link info">Services</a>
+        <a href="for-businesses.html" class="nav-link info">For Businesses</a>
+        <a href="contact.html" class="nav-link info">Contact</a>
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-group">
+        <a href="index.html" class="nav-link portfolio">Gasson Hall</a>
+        <a href="terrain-modeling.html" class="nav-link portfolio active">Pondside Green</a>
+        <a href="st-ignatius.html" class="nav-link portfolio">St. Ignatius</a>
+        <a href="viewer.html" class="nav-link portfolio">St. Ignatius 3DGS</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="video-gallery">
+    <p class="description">
+      Large-scale terrain modeling requires precision, scale, and real-world accuracy. This project demonstrates our expertise in comprehensive environmental analysis, combining systematic drone capture with decision-grade ground control to deliver decision-grade terrain models. When you need to understand every contour, slope, and feature across hundreds of acres, photogrammetry provides the detail that traditional surveying methods often miss.
+    </p>
+
+    <div style="margin:1.25rem 0 2rem">
+      <a href="contact.html" class="btn cta">Book a scan →</a>
+    </div>
+
+    <hr style="border: none; height: 1px; background: rgba(255,255,255,0.1); margin: 2rem 0;">
+
+    <div class="video-block">
+      <p class="tag">Terrain Analysis & Visualization</p>
+      <h2>Pondside Green: Altitude Heatmap & 3D Flythrough</h2>
+      
+      <img 
+        src="./assets/occ_18_green_heat_map.png" 
+        alt="Pondside Green Altitude Heatmap" 
+        style="width: 90%; max-width: 960px; height: auto; border-radius: 8px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); margin-bottom: 2rem;"
+      />
+      
+      <video 
+        controls 
+        style="width: 90%; max-width: 960px; height: auto; border-radius: 8px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);"
+      >
+        <source src="./assets/occ_18_green_tight_flythrough.mov" type="video/quicktime">
+        Your browser does not support the video tag.
+      </video>
+      
+      <p class="video-caption">
+        <strong>Project Scope</strong>: 200+ acres of terrain modeling for golf course redesign and construction planning<br>
+        <strong>Capture Method</strong>: Systematic grid pattern at 250 ft AGL using DJI Matrice 4 Enterprise drone<br>
+        <strong>Ground Control</strong>: 20 survey-grade points with Emlid Reach RS-3 GNSS receiver and RTK corrections<br>
+        <strong>Accuracy</strong>: Sub-2 cm precision against ground control points<br>
+        <strong>Deliverables</strong>: High-resolution point clouds, meshes, and decision-grade terrain models for design and construction
+      </p>
+    </div>
+
+    <div class="attribution-section">
+      <h3>Technical Capabilities</h3>
+      <p class="attribution-text">
+        <strong>Equipment</strong>: DJI Matrice 4 Enterprise drone with integrated camera system<br>
+        <strong>Processing</strong>: MacBook Pro M4 Pro with Metashape Pro for high-performance local processing<br>
+        <strong>Output Formats</strong>: Point clouds (.las/.laz), meshes (.obj/.ply), orthomosaics, digital elevation models, and CAD-ready exports<br>
+        <strong>Turnaround</strong>: On-site processing delivered to stakeholders within 24 hours<br>
+        <strong>Integration</strong>: Direct collaboration with course architect for control point placement and deliverable optimization<br>
+        <strong>Survey Partnership</strong>: Licensed surveyor collaboration available for survey-grade deliverables when required
+      </p>
+    </div>
+  </section>
+
+  <div class="cta-section">
+    <h2>Does your site require spatial intelligence?</h2>
+    <p class="cta-subtitle">Unlock precision 3D models, geometric analysis, and cinematic visualization.</p>
+    <a href="contact.html" class="cta-button">Book a scan →</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Caudell Spatial Intelligence</p>
+  </footer>
+
+  <script>
+    // Simple mobile navigation toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggle = document.querySelector('.mobile-nav-toggle');
+      const nav = document.querySelector('.main-nav');
+      
+      if (toggle && nav) {
+        toggle.onclick = function() {
+          nav.classList.toggle('mobile-open');
+        };
+      }
+    });
+  </script>
+</body>
+</html>

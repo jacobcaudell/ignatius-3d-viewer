@@ -1,0 +1,28 @@
+# Local Netlify folder
+.netlify
+.vercel
+
+# Large media files - these are hosted elsewhere
+assets/*.ksplat
+assets/*.mp4
+assets/*.mov
+
+# Development and system files
+.DS_Store
+*.log
+.env
+.env.local
+.env.production
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+assets/*.ksplat

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <title>Contact - Caudell Spatial Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="assets/CSI_logo.png" alt="CSI Logo" class="logo">
+      <div class="header-titles">
+        <h1 class="site-title">Caudell Spatial Intelligence</h1>
+        <p class="page-title">Contact</p>
+      </div>
+    </div>
+
+    <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">☰</button>
+
+    <nav class="main-nav">
+      <div class="nav-group">
+        <a href="about.html" class="nav-link info">About</a>
+        <a href="services.html" class="nav-link info">Services</a>
+        <a href="for-businesses.html" class="nav-link info">For Businesses</a>
+        <a href="contact.html" class="nav-link info active">Contact</a>
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-group">
+        <a href="index.html" class="nav-link portfolio">Gasson Hall</a>
+        <a href="terrain-modeling.html" class="nav-link portfolio">Pondside Green</a>
+        <a href="st-ignatius.html" class="nav-link portfolio">St. Ignatius</a>
+        <a href="viewer.html" class="nav-link portfolio">St. Ignatius 3DGS</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="video-gallery contact-page">
+    <div class="contact-wrap">
+      <h1 class="contact-title">Ready to capture your site?</h1>
+      <p class="contact-sub">Tell us about your project and we'll respond within 24 hours.</p>
+
+      <section class="contact-card" aria-labelledby="contact-heading">
+        <h2 id="contact-heading" class="sr-only">Contact form</h2>
+
+        <form id="contactForm" action="https://formspree.io/f/xkgzaedy" method="POST" novalidate class="contact-form">
+          <!-- Honeypot (spam bots fill this) -->
+          <div class="sr-only" aria-hidden="true">
+            <label for="website">Leave this field empty</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input id="name" name="name" type="text" autocomplete="name" required placeholder="Jane Doe">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder="you@company.com">
+          </div>
+
+          <div class="form-group">
+            <label for="type">Project Type *</label>
+            <select id="type" name="projectType" required>
+              <option value="">Select…</option>
+              <option value="3d-reality">3D Reality Capture</option>
+              <option value="terrain">Terrain Modeling</option>
+              <option value="interactive">Interactive 3D</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="4" required placeholder="Tell us about your site, scope, or goals…"></textarea>
+          </div>
+
+          <!-- Formspree requires this -->
+          <input type="hidden" name="_subject" value="New Contact Form Submission">
+          <input type="hidden" name="_captcha" value="false"> <!-- disables Captcha if you want -->
+
+          <button class="contact-btn" type="submit"><span>Send Message</span></button>
+
+          <div id="notice" class="contact-notice" role="status" aria-live="polite" style="display:none"></div>
+
+          <p class="contact-privacy">We only use your info to respond to your inquiry. No sharing, no spam.</p>
+        </form>
+      </section>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Caudell Spatial Intelligence</p>
+  </footer>
+
+  <script>
+    // Simple mobile navigation toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggle = document.querySelector('.mobile-nav-toggle');
+      const nav = document.querySelector('.main-nav');
+      if (toggle && nav) {
+        toggle.onclick = function() { nav.classList.toggle('mobile-open'); };
+      }
+
+      // Contact form handler for Formspree
+      document.getElementById("contactForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = new FormData(form);
+        const notice = document.getElementById("notice");
+        const btn = form.querySelector(".contact-btn");
+        btn.disabled = true;
+
+        try {
+          const res = await fetch(form.action, { 
+            method: form.method, 
+            body: data, 
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            notice.textContent = "Thanks — we received your message and will reply within 24 hours.";
+            notice.className = "contact-notice ok";
+            notice.style.display = "block";
+            form.reset();
+          } else {
+            notice.textContent = "Something went wrong. Please try again later.";
+            notice.className = "contact-notice fail";
+            notice.style.display = "block";
+          }
+        } catch (err) {
+          notice.textContent = "Network error. Please try again.";
+          notice.className = "contact-notice fail";
+          notice.style.display = "block";
+        }
+        btn.disabled = false;
+      });
+    });
+  </script>
+</body>
+</html>
