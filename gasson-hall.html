@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
-  <title>St. Ignatius Church - Caudell Spatial Intelligence</title>
+  <title>Gasson Hall: Two Approaches to 3D Reconstruction - Caudell Spatial Intelligence</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='white'/><text x='50' y='65' font-family='Arial, sans-serif' font-size='50' text-anchor='middle' fill='%23000'>G</text></svg>">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/CSI_logo.png">
@@ -26,7 +26,7 @@
       <img src="assets/CSI_logo.png" alt="CSI Logo" class="logo">
       <div class="header-titles">
         <h1 class="site-title">Caudell Spatial Intelligence</h1>
-        <p class="page-title">St. Ignatius: 3D Gaussian Splatting</p>
+        <p class="page-title">Gasson Hall: Two Approaches to 3D Reconstruction</p>
       </div>
     </div>
     
@@ -41,17 +41,17 @@
       </div>
       <div class="nav-divider"></div>
       <div class="nav-group">
-        <a href="index.html" class="nav-link portfolio">Gasson Hall</a>
+        <a href="index.html" class="nav-link portfolio active">Gasson Hall</a>
         <a href="terrain-modeling.html" class="nav-link portfolio">Pondside Green</a>
-        <a href="st-ignatius.html" class="nav-link portfolio active">St. Ignatius</a>
+        <a href="st-ignatius.html" class="nav-link portfolio">St. Ignatius</a>
         <a href="viewer.html" class="nav-link portfolio">St. Ignatius 3DGS</a>
       </div>
     </nav>
   </header>
 
   <section class="video-gallery">
-    <p class="description">
-      Interactive 3D visualization transforms static documentation into immersive experiences. This project demonstrates how cutting-edge Gaussian Splatting technology can bring art to life, allowing viewers to explore Pablo Eduardo's 2005 sculpture <em>St. Ignatius of Loyola</em> from any angle in real-time. Experience the intersection of artistic interpretation and technological innovation through dual visual styles that showcase the versatility of modern 3D reconstruction.
+          <p class="description">
+      Completed in 1913, Gasson Hall set the standard for New England Collegiate Gothic architecture, becoming the architectural centerpiece of Boston College's Chestnut Hill campus. Using this iconic structure as our subject, we demonstrate two approaches to 3D reconstruction from a single drone capture. The first uses classical photogrammetry for structural accuracy; the second uses NeRF reconstruction for view-dependent lighting and novel viewpoint synthesis. Each method offers distinct advantages for architectural analysis and presentation.
     </p>
 
     <div style="margin:1.25rem 0 2rem">
@@ -61,29 +61,29 @@
     <hr style="border: none; height: 1px; background: rgba(255,255,255,0.1); margin: 2rem 0;">
 
     <div class="video-block">
-      <p class="tag">Interactive 3D Experience</p>
-      <h2><em>St. Ignatius of Loyola</em></h2>
-      <iframe
-        src="viewer-embedded.html"
-        title="St. Ignatius Interactive 3D Viewer"
-        style="width: 100%; height: 600px; border: none; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"
-        allow="cross-origin-isolated; fullscreen"
-        allowfullscreen
-      ></iframe>
+      <p class="tag">Classical Pipeline</p>
+      <h2>Metashape Render</h2>
+      <iframe width="560" height="315" src="./assets/gasson_metashape.mp4" title="Metashape Render" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       <p class="video-caption">
-        <strong>Technology</strong>: Real-time Gaussian Splatting with 60fps rendering<br>
-        <strong>Artistic Styles</strong>: Photorealistic and watercolor interpretations<br>
-        <strong>Interaction</strong>: Mouse orbit, right-click pan, scroll zoom<br>
-        <strong>Location</strong>: <em>St. Ignatius of Loyola</em> by Pablo Eduardo (2005), Boston College, Chestnut Hill, Massachusetts
+        <strong>Original Structure</strong>: Gasson Hall (1913), Boston College, Chestnut Hill, Massachusetts<br>
+        <strong>Capture</strong>: DJI Matrice 4 Enterprise drone<br>
+        <strong>Processing</strong>: Metashape photogrammetry pipeline on cloud H100 GPU<br>
+        <strong>Output</strong>: High-fidelity mesh with UV-mapped textures<br>
+        <strong>Delivery</strong>: Cinematic flythrough with professional post-processing
       </p>
-      
-      <div class="attribution-section">
-        <h3>Technical Implementation</h3>
-        <p class="attribution-text">
-          <strong>Artistic Processing</strong>: <a href="https://amritkwatra.com/experiments/3d-line-drawings" target="_blank" rel="noopener">Amrit Kwatra</a> transformed our drone photography into watercolor-style Gaussian Splats, applying his research on 3D artistic line drawing techniques.<br>
-          <strong>Real-time Rendering</strong>: Built with <a href="https://github.com/mkkellogg/GaussianSplats3D" target="_blank" rel="noopener">Mark Kellogg's Three.js-based Gaussian Splats viewer</a> for smooth, interactive 3D exploration.
-        </p>
-      </div>
+    </div>
+
+    <div class="video-block">
+      <p class="tag">NeRF Reconstruction</p>
+      <h2>Nerfstudio Render</h2>
+      <iframe width="560" height="315" src="./assets/gasson_nerfstudio.mp4" title="Nerfstudio Render" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <p class="video-caption">
+        <strong>Original Structure</strong>: Gasson Hall (1913), Boston College, Chestnut Hill, Massachusetts<br>
+        <strong>Input</strong>: Camera poses and imagery from Metashape workflow<br>
+        <strong>Processing</strong>: Nerfstudio Neural Radiance Field training on cloud H100 GPU<br>
+        <strong>Output</strong>: Neural radiance field representation<br>
+        <strong>Delivery</strong>: Cinematic flythrough with professional post-processing
+      </p>
     </div>
   </section>
 
@@ -98,17 +98,7 @@
   </footer>
 
   <script>
-    // Simple mobile navigation toggle
-    document.addEventListener('DOMContentLoaded', function() {
-      const toggle = document.querySelector('.mobile-nav-toggle');
-      const nav = document.querySelector('.main-nav');
-      
-      if (toggle && nav) {
-        toggle.onclick = function() {
-          nav.classList.toggle('mobile-open');
-        };
-      }
-    });
+    // No JavaScript needed - navigation is always visible on mobile
   </script>
 </body>
 </html>
