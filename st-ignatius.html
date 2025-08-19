@@ -135,6 +135,41 @@
       const desktopViewer = document.getElementById('desktop-viewer');
       const mobileMessage = document.getElementById('mobile-message');
       
+      // Error handling for 3D viewer
+      function handleViewerError() {
+        console.log('3D viewer failed to load, showing fallback');
+        desktopViewer.style.display = 'none';
+        mobileMessage.style.display = 'block';
+        
+        // Update message to indicate viewer failure
+        const messageContent = mobileMessage.querySelector('div');
+        if (messageContent) {
+          messageContent.innerHTML = `
+            <h3 style="color: #ffffff; margin-bottom: 1rem;">3D Viewer Not Compatible</h3>
+            <p style="color: #d1d5db; margin-bottom: 1.5rem;">
+              Your browser or device cannot display the interactive 3D viewer. This typically indicates:
+              <br>• Outdated graphics drivers
+              <br>• Insufficient WebGL support
+              <br>• Browser compatibility limitations
+            </p>
+            <p style="color: #d1d5db; margin-bottom: 1.5rem;">
+              <strong>Recommendation:</strong> Update your browser and graphics drivers, or try a different device.
+            </p>
+            <p style="color: #d1d5db; margin-bottom: 1.5rem;">
+              In the meantime, you can view the watercolor interpretation:
+            </p>
+            <a 
+              href="https://www.useblurry.com/reconstruction/st_ignatius_watercolor-377fq_Ab" 
+              target="_blank" 
+              rel="noopener"
+              style="display: inline-block; background: #60a5fa; color: white; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 500; transition: background-color 0.2s ease;"
+            >
+              View Watercolor Model →
+            </a>
+          `;
+        }
+      }
+      
       function switchViewer() {
         console.log('Switching viewer - Screen width:', window.innerWidth);
         if (window.innerWidth <= 768) {
@@ -152,6 +187,49 @@
           if (!desktopViewer.src || desktopViewer.src === window.location.href) {
             console.log('Loading desktop viewer iframe source');
             desktopViewer.src = desktopViewer.dataset.src;
+            
+            // Add error handling
+            desktopViewer.onerror = handleViewerError;
+            desktopViewer.onload = function() {
+              console.log('3D viewer loaded successfully');
+            };
+            
+            // Set a timeout to detect if viewer takes too long to load
+            setTimeout(function() {
+              try {
+                // Check if iframe has loaded content
+                if (desktopViewer.contentDocument && desktopViewer.contentDocument.readyState === 'complete') {
+                  console.log('Viewer loaded within timeout');
+                  
+                  // Check if the viewer actually contains 3D content
+                  const has3DContent = desktopViewer.contentDocument.querySelector('canvas') || 
+                                       desktopViewer.contentDocument.querySelector('.viewer') ||
+                                       desktopViewer.contentDocument.body.innerHTML.includes('3D') ||
+                                       desktopViewer.contentDocument.body.innerHTML.includes('viewer');
+                  
+                  if (!has3DContent) {
+                    console.log('Viewer loaded but no 3D content detected, showing fallback');
+                    handleViewerError();
+                  }
+                } else {
+                  console.log('Viewer loading timeout, checking for errors');
+                  // Check if there are any error indicators in the iframe
+                  try {
+                    if (desktopViewer.contentWindow.location.href.includes('error') || 
+                        desktopViewer.contentDocument.title.includes('Error')) {
+                      handleViewerError();
+                    }
+                  } catch (e) {
+                    // Cross-origin restrictions, but we can still detect basic loading issues
+                    console.log('Cross-origin restriction, but viewer appears to be loading');
+                  }
+                }
+              } catch (e) {
+                // If we can't access the iframe content due to cross-origin restrictions,
+                // we'll assume it's working and let the user experience determine success
+                console.log('Cross-origin restriction, viewer appears to be loading');
+              }
+            }, 10000); // 10 second timeout
           }
         }
       }
