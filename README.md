@@ -10,6 +10,9 @@ A comparison of classical photogrammetry (Metashape) and NeRF training (Nerfstud
 ### St. Ignatius: Interactive 3D Gaussian Splatting
 Real-time 3D visualization using Gaussian Splatting technology to explore Pablo Eduardo's 2005 sculpture. Features dual artistic styles (photorealistic and watercolor) with interactive camera controls for immersive exploration.
 
+### Pondside Green: Terrain Modeling & Analysis
+Large-scale terrain modeling project demonstrating precision environmental analysis. Combines systematic drone capture with decision-grade ground control to deliver high-fidelity terrain models for golf course redesign and construction planning.
+
 ## Technology Stack
 
 - **Drone Capture**: DJI Matrice 4 Enterprise
@@ -23,12 +26,13 @@ Real-time 3D visualization using Gaussian Splatting technology to explore Pablo 
 
 ```
 caudell_spatial_intelligence_vercel_site/
-├── index.html              # Gasson Hall project page (main portfolio)
-├── st-ignatius.html        # St. Ignatius project page with embedded viewer
-├── terrain-modeling.html   # Pondside Green terrain analysis project
-├── services.html           # Professional services overview
+├── index.html              # Home page with service overview
+├── services.html           # Professional services overview with proof stripe
 ├── about.html              # Company and founder information
-├── for-businesses.html     # Luxury boutique-style business page for executives
+├── contact.html            # Contact form and information
+├── terrain-modeling.html   # Pondside Green terrain analysis project
+├── gasson-hall.html        # Gasson Hall project page
+├── st-ignatius.html        # St. Ignatius project page with embedded viewer
 ├── viewer.html             # Full-screen 3D viewer with navigation
 ├── viewer-embedded.html    # Embedded 3D viewer for iframe integration
 ├── style.css               # Shared styling and responsive design
@@ -38,18 +42,19 @@ caudell_spatial_intelligence_vercel_site/
 └── assets/
     ├── CSI_logo.png        # Company logo
     ├── founder_hero_shot.png   # Founder portrait
-    ├── gasson_metashape.mp4    # Metashape render video
-    ├── gasson_nerfstudio.mp4   # Nerfstudio render video
     ├── occ_18_green_heat_map.png      # Terrain altitude heatmap
     ├── occ_18_green_tight_flythrough.mov   # Terrain flythrough video
-    ├── caudell_photorealistic_ignatius.ksplat    # Photorealistic 3D scene
-    ├── caudell_watercolor_ignatius.ksplat        # Watercolor 3D scene
     └── lib/                 # Three.js and Gaussian Splats libraries
         ├── three.module.js
         └── gaussian-splats-3d.module.js
 ```
 
 ## Features
+
+### Services Overview
+- **Terrain & Environmental Models**: High-fidelity ground models with slope, contour, and flow analysis
+- **3D Reality Capture**: Drone-based site capture with sub-2 cm accuracy
+- **Interactive 3D Experiences**: Immersive browser-based models for intuitive reviews
 
 ### Gasson Hall Project
 - **Classical Photogrammetry**: High-fidelity mesh reconstruction with UV-mapped textures
@@ -62,6 +67,23 @@ caudell_spatial_intelligence_vercel_site/
 - **Dual Artistic Styles**: Switch between photorealistic and watercolor interpretations
 - **Intuitive Controls**: Mouse orbit, right-click pan, scroll zoom
 - **Embedded Integration**: Seamless iframe integration for portfolio pages
+
+### Terrain Modeling
+- **Large-scale Coverage**: 200+ acres of terrain modeling
+- **High Accuracy**: Sub-2 cm precision against ground control points
+- **Decision-grade Outputs**: Ready for design and construction planning
+- **Fast Turnaround**: On-site processing delivered within 24 hours
+
+## Website Structure
+
+The website presents a cohesive narrative from service overview to interactive experience:
+
+1. **Home Page** (`index.html`): Service overview with case study links
+2. **Services Page** (`services.html`): Professional services with proof stripe and service cards
+3. **Portfolio Pages**: Individual project showcases with case study CTAs
+4. **Interactive Experience** (`st-ignatius.html`): Embedded 3D viewer demonstrating real-time capabilities
+5. **Full-screen Viewer** (`viewer.html`): Immersive experience with navigation back to portfolio
+6. **Unified Navigation**: Seamless movement between all sections
 
 ## Deployment
 
@@ -83,8 +105,6 @@ npx serve .
 php -S localhost:8000
 ```
 
-
-
 ## Technical Details
 
 ### 3D Reconstruction Pipeline
@@ -98,16 +118,6 @@ php -S localhost:8000
 - **Scene Management**: Dynamic loading and switching between artistic styles
 - **Camera Controls**: Intuitive navigation with orbit, pan, and zoom
 - **Responsive Design**: Optimized for all device sizes
-
-## Website Structure
-
-The website presents a cohesive narrative from static documentation to interactive experience:
-
-1. **Main Portfolio** (`index.html`): Gasson Hall project showcasing technical capabilities
-2. **Interactive Experience** (`st-ignatius.html`): Embedded 3D viewer demonstrating real-time capabilities
-3. **Full-screen Viewer** (`viewer.html`): Immersive experience with navigation back to portfolio
-4. **Unified Navigation**: Seamless movement between all sections
-5. **For Businesses Page**: Luxury boutique positioning for executive decision-makers with refined copy and CTA styling
 
 ## Asset Management
 

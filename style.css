@@ -107,22 +107,7 @@
     display: none;
   }
   
-  /* Center inline CTA buttons on mobile */
-  .btn.cta {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-    display: block;
-    text-align: center;
-  }
-  
-  /* Make CTA buttons below top paragraphs narrower for better centering */
-  .description .btn.cta,
-  .video-gallery .btn.cta {
-    max-width: 280px;
-    margin: 1rem auto;
-    display: block;
-  }
+
   
   /* Make contact form wider on mobile */
   .contact-page .contact-wrap {
@@ -221,10 +206,7 @@
     display: none;
   }
   
-  /* Hide regular St. Ignatius page on mobile */
-  .nav-link[href="st-ignatius.html"] {
-    display: none;
-  }
+
   
   .nav-divider {
     width: 1px;
@@ -442,7 +424,8 @@
   }
   
   .capability-item {
-    text-align: center;
+    display: grid;
+    gap: 0.75rem;          /* space between title, text, button */
     padding: 1.5rem 1rem;
   }
   
@@ -453,6 +436,31 @@
   
   .capability-item p {
     text-align: center;
+  }
+  
+  /* Style the inline links in capability items to match page-title styling */
+  .capability-item .inline-link,
+  .capabilities-grid .capability-item .inline-link,
+  .capability-item p .inline-link {
+    color: #cbd5e1 !important;
+    text-decoration: none !important;
+    font-weight: 400 !important;
+    font-size: 1.2rem !important;
+    transition: color 0.2s ease !important;
+  }
+  
+  .capability-item .inline-link:visited,
+  .capabilities-grid .capability-item .inline-link:visited,
+  .capability-item p .inline-link:visited {
+    color: #cbd5e1 !important;
+    text-decoration: none !important;
+  }
+  
+  .capability-item .inline-link:hover,
+  .capabilities-grid .capability-item .inline-link:hover,
+  .capability-item p .inline-link:hover {
+    color: #ffffff !important;
+    text-decoration: none !important;
   }
   
   .attribution-section {
@@ -2010,10 +2018,7 @@ footer {
     margin: 0 auto;
   }
   
-  /* Center all divs with content */
-  div {
-    text-align: center;
-  }
+
 }
 
 /* CTA Button Styles */
@@ -2040,16 +2045,7 @@ footer {
   transform: translateY(0);
 }
 
-/* Mobile CTA Button */
-@media (max-width: 768px) {
-  .btn.cta {
-    width: 100%;
-    max-width: 300px;
-    text-align: center;
-    margin: 0 auto;
-    display: block;
-  }
-}
+
 
 /* Contact Form Styles */
 .contact {
@@ -2148,27 +2144,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 @media (max-width: 360px) {
-	/* Center inline CTAs and make them slightly smaller to avoid overflow */
-	.btn.cta,
-	.cta-button {
-		display: block;
-		width: 100%;
-		max-width: 260px;
-		padding: 12px 14px;
-		font-size: 1rem;
-		margin: 0.75rem auto 0;
-		box-sizing: border-box;
-		text-align: center;
-	}
 
-	/* Ensure any inline CTA inside paragraphs centers */
-	.description .btn.cta,
-	.video-gallery .btn.cta,
-	.service-description .btn.cta {
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-	}
 
 	/* Make contact form card a bit narrower with comfy side margins */
 	.contact-card {
@@ -2546,5 +2522,206 @@ input:focus, select:focus, textarea:focus {
   
   .hero-subtitle {
     font-size: 1rem;
+  }
+  
+  /* St. Ignatius viewer responsive display */
+  .mobile-viewer {
+    display: none;
+  }
+  
+  .desktop-viewer {
+    display: block;
+  }
+  
+  @media (max-width: 768px) {
+    .mobile-viewer {
+      display: block !important;
+    }
+    
+    .desktop-viewer {
+      display: none !important;
+    }
+  }
+}
+
+/* Service Features List Styling */
+.service-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.service-features li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+.service-features li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+.service-features li:last-child {
+  margin-bottom: 0;
+}
+
+/* Proof Stripe Styling */
+.proof-stripe {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 3rem 0 4rem;
+  padding: 2rem;
+  background: rgba(96, 165, 250, 0.05);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  border-radius: 16px;
+}
+
+.proof-item {
+  text-align: center;
+}
+
+.proof-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #60a5fa;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.proof-label {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Service Card Styling */
+.service-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(203, 213, 225, 0.1);
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin-bottom: 4rem;
+  transition: all 0.3s ease;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.service-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(203, 213, 225, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Different background shades for each service card */
+.service-card-1 {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.service-card-2 {
+  background: rgba(96, 165, 250, 0.02);
+}
+
+.service-card-3 {
+  background: rgba(139, 92, 246, 0.02);
+}
+
+.service-header {
+  margin-bottom: 1.5rem;
+}
+
+.service-card h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.service-card .service-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #d1d5db;
+  max-width: 900px;
+}
+
+.service-card .service-features {
+  margin-bottom: 2rem;
+}
+
+/* Case Study Button Styling */
+.case-study-button {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.case-study-btn {
+  display: inline-block;
+  background: rgba(96, 165, 250, 0.15);
+  color: #60a5fa;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  transition: all 0.2s ease;
+}
+
+.case-study-btn:hover {
+  background: rgba(96, 165, 250, 0.25);
+  color: #ffffff;
+  border-color: rgba(96, 165, 250, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Mobile Responsiveness for Proof Stripe */
+@media (max-width: 768px) {
+  .proof-stripe {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0 3rem;
+    padding: 1.5rem;
+  }
+  
+  .proof-number {
+    font-size: 1.8rem;
+  }
+  
+  .service-card {
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  .service-card h2 {
+    font-size: 1.6rem;
+  }
+  
+  .service-card .service-description {
+    font-size: 1rem;
+  }
+  
+  .service-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
   }
 }
