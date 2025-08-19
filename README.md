@@ -53,7 +53,7 @@ caudell_spatial_intelligence_vercel_site/
 
 ### Services Overview
 - **Terrain & Environmental Models**: High-fidelity ground models with slope, contour, and flow analysis
-- **3D Reality Capture**: Drone-based site capture with sub-2 cm accuracy
+- **3D Reality Capture**: Drone-based site capture with professional workflows
 - **Interactive 3D Experiences**: Immersive browser-based models for intuitive reviews
 
 ### Gasson Hall Project
@@ -70,7 +70,7 @@ caudell_spatial_intelligence_vercel_site/
 
 ### Terrain Modeling
 - **Large-scale Coverage**: 200+ acres of terrain modeling
-- **High Accuracy**: Sub-2 cm precision against ground control points
+- **Quality Control**: Professional workflows with ground control validation
 - **Decision-grade Outputs**: Ready for design and construction planning
 - **Fast Turnaround**: On-site processing delivered within 24 hours
 
