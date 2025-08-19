@@ -65,7 +65,8 @@
       
       <!-- Desktop: Full Gaussian Splatting viewer -->
       <iframe
-        src="viewer-embedded.html"
+        src=""
+        data-src="viewer-embedded.html"
         title="St. Ignatius Interactive 3D Viewer"
         id="desktop-viewer"
         style="width: 100%; height: 600px; border: none; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"
@@ -135,19 +136,43 @@
       const mobileMessage = document.getElementById('mobile-message');
       
       function switchViewer() {
+        console.log('Switching viewer - Screen width:', window.innerWidth);
         if (window.innerWidth <= 768) {
-          // Mobile: show Blurry, hide Gaussian Splatting
+          // Mobile: show message, hide viewer
+          console.log('Mobile detected - showing message, hiding viewer');
           desktopViewer.style.display = 'none';
           mobileMessage.style.display = 'block';
         } else {
-          // Desktop: show Gaussian Splatting, hide Blurry
+          // Desktop: show viewer, hide message
+          console.log('Desktop detected - showing viewer, hiding message');
           desktopViewer.style.display = 'block';
           mobileMessage.style.display = 'none';
+          
+          // Only load the iframe source if it hasn't been loaded yet
+          if (!desktopViewer.src || desktopViewer.src === window.location.href) {
+            console.log('Loading desktop viewer iframe source');
+            desktopViewer.src = desktopViewer.dataset.src;
+          }
         }
       }
       
-      // Initial switch
-      switchViewer();
+      // Set initial state based on current screen size
+      console.log('Initial load - Screen width:', window.innerWidth);
+      if (window.innerWidth <= 768) {
+        // Mobile: start with message visible, viewer hidden
+        console.log('Initial mobile state - showing message, hiding viewer');
+        desktopViewer.style.display = 'none';
+        mobileMessage.style.display = 'block';
+        // Don't load the iframe source on mobile
+      } else {
+        // Desktop: start with viewer visible, message hidden
+        console.log('Initial desktop state - showing viewer, hiding message');
+        desktopViewer.style.display = 'block';
+        mobileMessage.style.display = 'none';
+        // Load the iframe source for desktop
+        console.log('Loading desktop viewer iframe source on initial load');
+        desktopViewer.src = desktopViewer.dataset.src;
+      }
       
       // Switch on window resize
       window.addEventListener('resize', switchViewer);
