@@ -1201,6 +1201,11 @@ header {
   margin-top: -1.25rem; /* Tightened spacing by ~20px (from 1rem to -1.25rem) */
 }
 
+/* Add breathing room between header and content on non-home pages */
+.video-gallery:not(.contact-page) {
+  margin-top: 2rem; /* Add space between header banner and page content */
+}
+
 .description {
   font-size: 1.1rem;
   font-weight: 400;
