@@ -1037,7 +1037,9 @@ header {
   height: 70vh;
   min-height: 500px;
   overflow: hidden;
-  margin-bottom: -3.25rem; /* Tightened spacing by ~20px (from -2rem to -3.25rem) */
+  margin-top: 2rem; /* Added separation between header banner and hero image */
+  margin-bottom: -0.5rem; /* Added even more space between hero and content */
+  border-radius: 12px; /* Add rounded corners to the container */
 }
 
 .hero img {
@@ -1046,24 +1048,59 @@ header {
   display: block;
   object-fit: cover;
   object-position: center 30%; /* Centers the statue better */
+  border-radius: 12px;
 }
 
 .hero-overlay {
   position: absolute;
-  top: 50%;
+  top: 65%; /* nice placement */
   left: 50%;
   transform: translate(-50%, -50%);
-  background: linear-gradient(
-    135deg,
-    rgba(26, 26, 46, 0.8) 0%,
-    rgba(22, 33, 62, 0.7) 50%,
-    rgba(15, 52, 96, 0.8) 100%
-  );
-  padding: 3rem;
+  
+  /* soften the background */
+  background: rgba(15, 32, 60, 0.25);  /* single-tone semi-transparent navy */
+  
+  padding: 2rem 3rem;   /* slightly less vertical padding so it feels sleeker */
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
   text-align: center;
-  max-width: 800px;
+  
+  max-width: 750px;    /* narrower card so it doesn't sprawl edge to edge */
+  width: 80%;           /* scales gracefully on smaller screens */
+  
   z-index: 2;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); /* softer shadow */
+  
+  backdrop-filter: blur(8px); /* optional: frosted glass look */
+  -webkit-backdrop-filter: blur(8px); /* Safari support */
+}
+
+/* Override for mobile */
+@media (max-width: 768px) {
+  .hero-overlay {
+    width: 90%;     /* almost full width */
+    top: 70%;       /* push it down a bit */
+    padding: 1.5rem;/* slightly smaller padding */
+    font-size: 0.9rem; /* optional: shrink text */
+  }
+}
+
+
+
+.hero-overlay h2 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero-overlay .hero-subtitle {
+  font-size: 1.3rem;
+  color: #e2e8f0;
+  margin: 0;
+  line-height: 1.5;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
 }
 
 /* Bottom gradient overlay for seamless blend */
@@ -1073,29 +1110,22 @@ header {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 30%;
+  height: 40%;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(26, 26, 46, 0.3) 50%,
-    rgba(26, 26, 46, 0.9) 100%
+    rgba(26, 26, 46, 0.1) 20%,
+    rgba(26, 26, 46, 0.4) 50%,
+    rgba(26, 26, 46, 0.8) 80%,
+    rgba(26, 26, 46, 0.95) 100%
   );
   z-index: 1;
 }
 
-.hero-overlay h2 {
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin: 0 0 1rem 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
 .hero-overlay .hero-subtitle {
   font-size: 1.3rem;
-  color: #e2e8f0;
+  color: #d1d5db;
   margin: 0;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   line-height: 1.5;
 }
 
@@ -1103,7 +1133,7 @@ header {
 @media (max-width: 768px) {
   .hero {
     height: 50vh;
-    margin-bottom: -1.625rem; /* Proportional tightening for mobile */
+    margin-bottom: -0.75rem; /* Proportional spacing for mobile */
   }
   
   .hero-overlay {
