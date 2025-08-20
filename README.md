@@ -11,7 +11,7 @@ A comparison of classical photogrammetry (Metashape) and NeRF training (Nerfstud
 Real-time 3D visualization using Gaussian Splatting technology to explore Pablo Eduardo's 2005 sculpture. Features dual artistic styles (photorealistic and watercolor) with interactive camera controls for immersive exploration.
 
 ### Pondside Green: Terrain Modeling & Analysis
-Large-scale terrain modeling project demonstrating precision environmental analysis. Combines systematic drone capture with decision-grade ground control to deliver high-fidelity terrain models for golf course redesign and construction planning.
+Large-scale terrain modeling project demonstrating precision environmental analysis. Combines systematic drone capture with decision-grade ground control to deliver high-fidelity terrain models for golf course redesign and construction planning. Features optimized MP4 video format for universal browser compatibility.
 
 ## Technology Stack
 
@@ -67,6 +67,8 @@ caudell_spatial_intelligence_vercel_site/
 - **Dual Artistic Styles**: Switch between photorealistic and watercolor interpretations
 - **Intuitive Controls**: Mouse orbit, right-click pan, scroll zoom
 - **Embedded Integration**: Seamless iframe integration for portfolio pages
+- **Error Handling**: Automatic fallback to Blurry link for compatibility issues
+- **Cross-platform Support**: Robust detection and graceful degradation
 
 ### Terrain Modeling
 - **Large-scale Coverage**: 200+ acres of terrain modeling
@@ -113,6 +115,12 @@ php -S localhost:8000
 3. **Workflow Integration**: Seamless data transfer between Metashape Pro and Nerfstudio
 4. **Output Generation**: Professional-grade visualizations and interactive experiences
 
+### Error Handling & Compatibility
+1. **Automatic Detection**: Timeout and content validation for 3D viewer failures
+2. **Graceful Fallbacks**: Seamless transition to alternative viewing options
+3. **User Guidance**: Technical explanations and actionable recommendations
+4. **Cross-platform Support**: Robust handling of WebGL and graphics limitations
+
 ### Gaussian Splatting Implementation
 - **Real-time Performance**: Optimized for smooth 60fps rendering
 - **Scene Management**: Dynamic loading and switching between artistic styles
@@ -123,8 +131,10 @@ php -S localhost:8000
 
 - **Local Assets**: CSS, HTML, JavaScript libraries
 - **Cloud Assets**: High-resolution videos and 3D models via Cloudflare R2
+- **Video Optimization**: MP4 conversion for web compatibility (77% size reduction)
 - **Optimization**: Efficient loading with proper caching headers
 - **Quality**: Professional-grade content delivery
+- **Format Support**: Web-standard formats for universal compatibility
 
 ## Browser Compatibility
 
@@ -132,6 +142,8 @@ php -S localhost:8000
 - **WebGL Support**: Required for 3D rendering
 - **ES6 Modules**: Modern JavaScript for optimal performance
 - **Responsive Design**: Mobile and desktop optimized
+- **Video Compatibility**: MP4 format for universal browser support
+- **Graceful Degradation**: Automatic fallbacks for unsupported features
 
 ## License
 
