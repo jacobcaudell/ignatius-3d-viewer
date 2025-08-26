@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Gasson Hall - Jacob Caudell</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='white'/><text x='50' y='65' font-family='Arial, sans-serif' font-size='50' text-anchor='middle' fill='%23000'>G</text></svg>">
+  <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/CSI_logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/CSI_logo.png">
+  <link rel="apple-touch-icon" href="../assets/CSI_logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/CSI_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="../assets/CSI_logo.png" alt="Logo" class="logo">
+      <div class="header-titles">
+        <h1 class="site-title">Jacob Caudell</h1>
+        <p class="page-title">Portfolio of Work</p>
+      </div>
+    </div>
+    
+    <nav class="main-nav">
+      <div class="nav-group">
+        <a href="index.html" class="nav-link info">Home</a>
+        <a href="about.html" class="nav-link info">About</a>
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-group">
+        <a href="terrain-modeling.html" class="nav-link portfolio">Pondside Green</a>
+        <a href="gasson-hall.html" class="nav-link portfolio active">Gasson Hall</a>
+        <a href="st-ignatius.html" class="nav-link portfolio">St. Ignatius</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="video-gallery">
+          <p class="description">
+        Completed in 1913, Gasson Hall set the standard for New England Collegiate Gothic architecture, becoming the 
+        architectural centerpiece of Boston College's Chestnut Hill campus. Using this iconic structure as a subject, 
+        this project demonstrates two approaches to 3D reconstruction from a single drone capture. The first uses 
+        classical photogrammetry for structural accuracy and detailed textures; the second uses neural reconstruction 
+        for view-dependent lighting and novel viewpoint synthesis. Each method offers distinct advantages for 
+        architectural analysis and presentation.
+      </p>
+
+    <hr style="border: none; height: 1px; background: rgba(255,255,255,0.1); margin: 2rem 0;">
+
+    <div class="video-block">
+      <p class="tag">Classical Approach</p>
+      <h2>Photogrammetric Reconstruction</h2>
+      <iframe width="560" height="315" src="../assets/gasson_metashape.mp4" title="Photogrammetric Reconstruction" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <p class="video-caption">
+        <strong>Subject</strong>: Gasson Hall (1913), Boston College, Chestnut Hill, Massachusetts<br>
+        <strong>Capture</strong>: Professional drone with systematic capture patterns<br>
+        <strong>Processing</strong>: Advanced photogrammetry pipeline with cloud computing<br>
+        <strong>Output</strong>: High-fidelity mesh with detailed textures<br>
+        <strong>Result</strong>: Cinematic flythrough with professional post-processing
+      </p>
+    </div>
+
+    <div class="video-block">
+      <p class="tag">Neural Approach</p>
+      <h2>Neural Reconstruction</h2>
+      <iframe width="560" height="315" src="../assets/gasson_nerfstudio.mp4" title="Neural Reconstruction" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <p class="video-caption">
+        <strong>Subject</strong>: Gasson Hall (1913), Boston College, Chestnut Hill, Massachusetts<br>
+        <strong>Input</strong>: Camera poses and imagery from photogrammetry workflow<br>
+        <strong>Processing</strong>: Neural reconstruction training with cloud computing<br>
+        <strong>Output</strong>: Neural representation<br>
+        <strong>Result</strong>: Cinematic flythrough with professional post-processing
+      </p>
+    </div>
+  </section>
+</body>
+</html>

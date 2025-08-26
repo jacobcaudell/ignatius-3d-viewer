@@ -35,15 +35,24 @@ caudell_spatial_intelligence_vercel_site/
 ├── st-ignatius.html        # St. Ignatius project page with embedded viewer
 ├── viewer.html             # Full-screen 3D viewer with navigation
 ├── viewer-embedded.html    # Embedded 3D viewer for iframe integration
+├── coming-soon.html        # Generic coming soon page template
 ├── style.css               # Shared styling and responsive design
 ├── vercel.json             # Vercel deployment configuration
 ├── README.md               # This documentation
+
+├── portfolio-showcase/     # Patent-friendly portfolio version
+│   ├── index.html          # Home page (personal portfolio format)
+│   ├── about.html          # About page (personal background)
+│   ├── terrain-modeling.html # Pondside Green project
+│   ├── gasson-hall.html    # Gasson Hall project
+│   ├── st-ignatius.html    # St. Ignatius project
+│   └── style.css           # Simplified styling
 
 └── assets/
     ├── CSI_logo.png        # Company logo
     ├── founder_hero_shot.png   # Founder portrait
     ├── occ_18_green_heat_map.png      # Terrain altitude heatmap
-    ├── occ_18_green_tight_flythrough.mov   # Terrain flythrough video
+    ├── occ_18_green_tight_flythrough.mp4   # Terrain flythrough video
     └── lib/                 # Three.js and Gaussian Splats libraries
         ├── three.module.js
         └── gaussian-splats-3d.module.js
@@ -55,6 +64,12 @@ caudell_spatial_intelligence_vercel_site/
 - **Terrain & Environmental Models**: High-fidelity ground models with slope, contour, and flow analysis
 - **3D Reality Capture**: Drone-based site capture with professional workflows
 - **Interactive 3D Experiences**: Immersive browser-based models for intuitive reviews
+
+### Coming Soon Template
+- **Generic placeholder page** - No business or technical details
+- **Professional appearance** - Maintains brand identity
+- **Quick deployment** - Easy swap for temporary hiding
+- **Patent protection** - Conceals all business activities
 
 ### Gasson Hall Project
 - **Classical Photogrammetry**: High-fidelity mesh reconstruction with UV-mapped textures
@@ -86,6 +101,26 @@ The website presents a cohesive narrative from service overview to interactive e
 4. **Interactive Experience** (`st-ignatius.html`): Embedded 3D viewer demonstrating real-time capabilities
 5. **Full-screen Viewer** (`viewer.html`): Immersive experience with navigation back to portfolio
 6. **Unified Navigation**: Seamless movement between all sections
+
+## Portfolio Showcase (Patent-Friendly Version)
+
+Located in the `portfolio-showcase/` subdirectory, this version removes all business language and specific technical details:
+
+- **No company references** - Personal portfolio format
+- **No business CTAs** - Pure showcase of work
+- **Generic technical descriptions** - No specific software/hardware names
+- **Same impressive content** - Maintains quality and sophistication
+- **Patent-friendly** - Suitable for IP protection scenarios
+
+### Quick Swap Instructions
+
+If you need to temporarily hide business content:
+
+1. **Backup current site**: `cp index.html index-backup.html`
+2. **Swap in coming soon**: `cp coming-soon.html index.html`
+3. **Restore**: `cp index-backup.html index.html`
+
+Or use the portfolio showcase version for patent applications.
 
 ## Deployment
 

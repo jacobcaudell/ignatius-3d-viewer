@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>St. Ignatius - Jacob Caudell</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='white'/><text x='50' y='65' font-family='Arial, sans-serif' font-size='50' text-anchor='middle' fill='%23000'>G</text></svg>">
+  <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/CSI_logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/CSI_logo.png">
+  <link rel="apple-touch-icon" href="../assets/CSI_logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/CSI_logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="../assets/CSI_logo.png" alt="Logo" class="logo">
+      <div class="header-titles">
+        <h1 class="site-title">Jacob Caudell</h1>
+        <p class="page-title">Portfolio of Work</p>
+      </div>
+    </div>
+    
+    <nav class="main-nav">
+      <div class="nav-group">
+        <a href="index.html" class="nav-link info">Home</a>
+        <a href="about.html" class="nav-link info">About</a>
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-group">
+        <a href="terrain-modeling.html" class="nav-link portfolio">Pondside Green</a>
+        <a href="gasson-hall.html" class="nav-link portfolio">Gasson Hall</a>
+        <a href="st-ignatius.html" class="nav-link portfolio active">St. Ignatius</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="video-gallery">
+          <p class="description">
+        Interactive 3D visualization transforms static documentation into immersive experiences. This project demonstrates 
+        how cutting-edge 3D technology can bring art to life, allowing viewers to explore Pablo Eduardo's 
+        2005 sculpture <em>St. Ignatius of Loyola</em> from any angle in real-time. Experience the intersection of 
+        artistic interpretation and technological innovation through dual visual styles that showcase the versatility of 
+        modern 3D reconstruction.
+      </p>
+
+    <hr style="border: none; height: 1px; background: rgba(255,255,255,0.1); margin: 2rem 0;">
+
+    <div class="video-block">
+      <p class="tag">Interactive 3D Experience</p>
+      <h2><em>St. Ignatius of Loyola</em></h2>
+      
+      <!-- Desktop: Full 3D viewer -->
+      <iframe
+        src=""
+        data-src="../viewer-embedded.html"
+        title="St. Ignatius Interactive 3D Viewer"
+        id="desktop-viewer"
+        style="width: 100%; height: 600px; border: none; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"
+        allow="cross-origin-isolated; fullscreen"
+        allowfullscreen
+      ></iframe>
+      
+      <!-- Mobile: Simple message with link -->
+      <div id="mobile-message" style="display: none;">
+        <div style="text-align: center; padding: 2rem; background: rgba(255, 255, 255, 0.05); border-radius: 8px; border: 1px solid rgba(203, 213, 225, 0.2);">
+          <h3 style="color: #ffffff; margin-bottom: 1rem;">Watercolor Model Available</h3>
+          <p style="color: #d1d5db; margin-bottom: 1.5rem;">
+            The watercolor interpretation of St. Ignatius is available for viewing on mobile devices.
+          </p>
+          <a 
+            href="https://www.useblurry.com/reconstruction/st_ignatius_watercolor-377fq_Ab" 
+            target="_blank" 
+            rel="noopener"
+            style="display: inline-block; background: #60a5fa; color: white; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 500; transition: background-color 0.2s ease;"
+          >
+            View Watercolor Model →
+          </a>
+        </div>
+      </div>
+      
+      <p class="video-caption">
+        <strong>Subject</strong>: <em>St. Ignatius of Loyola</em> (2005) by Pablo Eduardo<br>
+        <strong>Technology</strong>: Real-time 3D visualization with advanced rendering technology<br>
+        <strong>Features</strong>: Dual artistic styles (photorealistic and watercolor), camera controls, cross-platform compatibility<br>
+        <strong>Experience</strong>: Mouse orbit, right-click pan, scroll zoom for navigation<br>
+        <strong>Performance</strong>: Optimized for smooth 60fps rendering with dynamic scene management
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // Simple viewer loading with fallback
+    const viewer = document.getElementById('desktop-viewer');
+    const mobileMessage = document.getElementById('mobile-message');
+    
+    // Check if mobile
+    if (window.innerWidth <= 768) {
+      viewer.style.display = 'none';
+      mobileMessage.style.display = 'block';
+    } else {
+      // Load viewer for desktop
+      viewer.src = viewer.dataset.src;
+      
+      // Fallback if viewer fails to load
+      setTimeout(() => {
+        if (viewer.contentDocument && viewer.contentDocument.body.innerHTML === '') {
+          viewer.style.display = 'none';
+          mobileMessage.style.display = 'block';
+        }
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
